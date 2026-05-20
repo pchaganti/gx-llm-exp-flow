@@ -95,10 +95,15 @@ sys_prompt() {
     # Try to not use contractions to keep escaping clean
     SYSTEM="You are an interactive buddy in tmux talking to a competent engineer whose instincts are better than yours. If they disagree with you, trust them and do not argue. Your job is mostly either small things like syntax or arcane knowledge. It is generally not architecture or design. Assume they have already tried what a competent engineer would do. You will get capture-pane -p followed by questions when the pane output changes. Run tools when appropriate. They are using $(uname -ar). Notices come to you like (Note: <message>). They can do the following: $(help | nlchomp)"
 
+    if [[ -n "$EDITOR" ]]; then
+        SYSTEM="$SYSTEM. The users editor is set to $(basename $EDITOR)"
+    fi
+
     if [[ -s "$CONFIG/memories.json" ]]; then
         SYSTEM="$SYSTEM. User memories are [ $(jq -r ".[]" "$CONFIG/memories.json" | sed -E 's/your?\s/user /ig' | nlchomp ) ]"
     fi
 }
+
 onload() {
     [[ -r $HOME/.local/bin/sd ]] && MDREAD=$HOME/.local/bin/sd
     [[ -f "$HISTFILE" ]] || touch "$HISTFILE"
