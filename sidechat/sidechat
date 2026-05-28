@@ -325,10 +325,12 @@ choose() {
     [[ "$depth" == 0 ]] && echo "Select panes or any other key to end selection" | $MDREAD
     [[ -z "$INTMUX" ]] && return
     tmux display-panes -d 0 "run-shell 'echo %% > $MDIR/pane-id'"
+
     if [[ $? == "1" ]] ; then
         echo "Exiting due to possible infinite loop."
         exit 1
     fi
+
     if [[ -e "$MDIR/pane-id" ]]; then 
         pane_id=$(cat "$MDIR/pane-id")
         [[ "$depth" == 0 ]] && pane_list=( )
@@ -403,6 +405,7 @@ last() {
         jq -r '.[] | "\n**\(.role)**: \(.content)"' $convo_id | tail -$amount; 
     } | $MDREAD
 }
+
 llc() {
     ll -m "$LLM_MODEL" "$@"
 }

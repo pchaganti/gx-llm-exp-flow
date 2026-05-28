@@ -2,6 +2,22 @@
   {
     "type": "function",
     "function": {
+      "name": "run_command",
+      "description": "Run command, this is what you should try first",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cmd": {
+            "type": "string",
+            "description": "The command you wish to run"
+          }
+        }
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
       "name": "list_files",
       "description": "List files in a given path",
       "parameters": {
@@ -19,7 +35,7 @@
     "type": "function",
     "function": {
       "name": "run_bash_command",
-      "description": "run a command in bash",
+      "description": "run a command in bash - only do this if run_cmd fails",
       "parameters": {
         "type": "object",
         "properties": {
