@@ -567,7 +567,7 @@ emit_capture() {
         echo "<ps hierarchy>IMPORTANT: This is what is currently running: $(ps -o comm= --ppid $_pid -p $_pid | tr '\n' ' '). YOU DO NOT NEED TO RUN IT AGAIN, IT IS ALREADY RUNNING.</ps hierarchy>"
     fi
     echo "<capture>"
-    cat "$MDIR/${ix}.new"
+    cat "$MDIR/${ix}.new" | sed -e :a -e '/^\n*$/{$d;N;ba}'
     echo "</capture>"
 }
 
