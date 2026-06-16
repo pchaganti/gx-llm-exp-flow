@@ -7,7 +7,7 @@ CAPTURE="ON"
 HISTFILE="$MDIR/history"
 HISTSIZE=1000
 INJECT=
-MDREAD='sd -c <(echo -e "[style]\nMargin = 4")'
+MDREAD='sd -cs "style.Margin=4"'
 LLM_MODEL=
 USECLIP=
 LAUNCH="$0"
@@ -580,6 +580,7 @@ process_out() {
             echo -n "{";
             cat
         } > $MDIR/tc-input 
+
         cat $MDIR/tc-input | tr "'" '"' | "$DIR/sc-tp.py" > $MDIR/tc-output
         echo "Feeding it back..."
         {
@@ -697,6 +698,7 @@ while [ 0 ]; do
     RETRY=
     INJECT=
     ata=""
+
     [[ -n "$USECLIP" ]]      && USECLIP=
     [[ -n "$forcecapture" ]] && forcecapture=
     set_prompt
